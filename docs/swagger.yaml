@@ -1,0 +1,56 @@
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.Post:
+    properties:
+      body:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      title:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: Demo service API
+  title: Service API
+  version: "1.0"
+paths:
+  /posts:
+    post:
+      consumes:
+      - application/json
+      description: Creates a Post
+      parameters:
+      - description: Post Data
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Post'
+            type: array
+      summary: Create Post
+      tags:
+      - Post
+swagger: "2.0"
